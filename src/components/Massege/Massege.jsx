@@ -1,16 +1,11 @@
-import PropTypes from 'prop-types';
 import { Info } from './Massege.styled';
 
-const Massege = ({ info }) => {
+const Massege = () => {
   return (
     <>
-      <Info>{info}</Info>
+      <Info>No contacts to display</Info>
     </>
   );
-};
-
-Massege.propTypes = {
-  info: PropTypes.string.isRequired,
 };
 
 export default Massege;

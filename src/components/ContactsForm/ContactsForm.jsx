@@ -1,10 +1,18 @@
 import { useState } from 'react';
-
+import { nanoid } from 'nanoid';
 import { FaUserPlus } from 'react-icons/fa';
-import PropTypes from 'prop-types';
 import { Btn, Form, Input, Label } from './ContactsForm.styled';
+import {useSelector, useDispatch} from 'react-redux'
 
-function ContactForm(props) {
+import { addContacts } from 'redux/slise';
+
+
+
+
+function ContactForm() {
+  const contacts = useSelector(state=> state.phonebook.contacts)
+  const dispatch = useDispatch();
+  
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -22,16 +30,14 @@ function ContactForm(props) {
         return;
     }
   };
+  const addContact = ({ name, number }) => {
+    const newContact = { id: nanoid(), name, number };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    const { onSubmit } = props;
-
-    onSubmit({ name, number });
-
-    reset();
+    contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())
+      ? alert(`${name} is already in contacts.`)
+      : dispatch(addContacts(newContact));
   };
+ 
   const reset = () => {
     setName('');
     setNumber('');
@@ -39,7 +45,11 @@ function ContactForm(props) {
 
   const iconStyles = { fill: '#FFFFFF', marginLeft: '10px' };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={e=>{e.preventDefault();
+    addContact({ name, number });
+    reset()
+    }
+    }>
       <Label>
         Name
         <Input
@@ -72,8 +82,5 @@ function ContactForm(props) {
   );
 }
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default ContactForm;
