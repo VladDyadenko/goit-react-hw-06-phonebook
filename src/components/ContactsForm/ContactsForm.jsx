@@ -3,10 +3,10 @@ import { nanoid } from 'nanoid';
 import { FaUserPlus } from 'react-icons/fa';
 import { Btn, Form, Input, Label } from './ContactsForm.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContacts } from 'redux/slise';
+import { addContacts, getContacts } from 'redux/slise';
 
 function ContactForm() {
-  const contacts = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');

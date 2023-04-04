@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { filterOnContact } from 'redux/slise';
+import { filterOnContact, getFilter } from 'redux/slise';
 import { Label, Input } from './Filter.styled';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.phonebook.filter);
+  const filter = useSelector(getFilter);
 
   return (
     <div>

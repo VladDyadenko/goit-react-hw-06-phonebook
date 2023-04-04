@@ -8,7 +8,7 @@ import {
   ContactNumber,
   List,
 } from './ContactList.styled';
-import { deleteContact } from 'redux/slise';
+import { deleteContact, getContacts, getFilter } from 'redux/slise';
 import { useDispatch, useSelector } from 'react-redux';
 import Massege from 'components/Massege';
 
@@ -16,8 +16,8 @@ const ContactList = () => {
   const svgStylePhon = { fill: '#006400', marginRight: '8px' };
   const svgStyleUser = { fill: '#FF4500', marginLeft: '8px' };
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.phonebook.contacts);
-  const filter = useSelector(state => state.phonebook.filter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   const getContactOnFilter = () => {
     if (filter !== '') {
