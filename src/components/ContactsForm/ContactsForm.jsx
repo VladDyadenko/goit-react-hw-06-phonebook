@@ -29,9 +29,16 @@ function ContactForm() {
   const addContact = ({ name, number }) => {
     const newContact = { id: nanoid(), name, number };
 
-    contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())
-      ? alert(`${name} is already in contacts.`)
-      : dispatch(addContacts(newContact));
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      alert(`${name} is already in contacts.`);
+    } else {
+      dispatch(addContacts(newContact));
+      reset();
+    }
   };
 
   const reset = () => {
@@ -45,7 +52,6 @@ function ContactForm() {
       onSubmit={e => {
         e.preventDefault();
         addContact({ name, number });
-        reset();
       }}
     >
       <Label>

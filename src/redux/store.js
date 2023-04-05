@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { contactsReducer } from './slise';
 import {
   persistStore,
@@ -12,20 +12,16 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const rootReducer = combineReducers({
-  phonebook: contactsReducer,
-});
-
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['phonebook'],
+  whitelist: ['contacts'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, contactsReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: { phonebook: persistedReducer },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
